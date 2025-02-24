@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <script src="jsk/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            text-align: center;
+        }
+
+        header {
+            background: #ff4081;
+            position: fixed;
+            width: 100%;
+            color: white;
+            padding: 10px 0;
+            font-size: 24px;
+            display: flex;
+            text-align: center;
+            height: 100px;
+        }
+
+        .container {
+            width: 50%;
+            background: black;
+
+            padding: 20px;
+            margin-top: 100px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+
+        .info-box {
+
+            box-shadow: 0 0 10px #0f0;
+            border: 2px solid #0f0;
+            color: #0f0;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+        }
+
+        .show {
+            display: none;
+        }
+
+        .form-container {
+            margin: 20px 0;
+        }
+
+        input {
+            width: 80%;
+            padding: 5px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        button {
+            background: #000000;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0aa71f;
+        }
+
+        h1 {
+            font-size: 30px;
+        }
+
+        .feedback-section {
+            margin-top: 20px;
+            background: #f8f9fa;
+            padding: 10px;
+            border-radius: 5px;
+        }
+
+        .navbar {
+            box-shadow: 0 0 10px #0f0;
+            border: 2px solid #0f0;
+            color: #0f0;
+
+
+        }
+    </style>
+
+    <script type="module">
+        // Firebase SDK Import करो
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDt_fcSYPmnJf2BlG-hkloTvRbly777zlo",
+            authDomain: "login-sytem-e8de2.firebaseapp.com",
+            projectId: "login-sytem-e8de2",
+            storageBucket: "login-sytem-e8de2.appspot.com",
+            messagingSenderId: "153196193021",
+            appId: "1:153196193021:web:f44231cd3918be9df70a94"
+        };
+
+        // Firebase Initialize
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // ✅ Check if user is logged in
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                document.getElementById("user-email").innerText = user.email;
+            } else {
+                window.location.href = "index.html"; // अगर यूज़र लॉगिन नहीं है तो उसे लॉगिन पेज पर भेजो
+            }
+        });
+
+        // ✅ Logout Function
+        window.logout = function () {
+            signOut(auth).then(() => {
+                alert("Logout Successful!");
+                window.location.href = "index.html"; // लॉगआउट के बाद लॉगिन पेज पर भेजो
+            }).catch((error) => {
+                alert(error.message);
+            });
+        };
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-md navbar-dark ">
+        <a href="#" class="navbar-brand text-primary font-weight-bold">Hack Insta </a>
+        <button class="navbar-toggler" id="b1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collnav">
+            <ul class="navbar-nav text-center">
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+    
+                <li class="nav-item"><a href="#" class="nav-link" onclick="logout()">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+    <h2>Welcome to Dashboard</h2>
+<br><br>
+        <div class="info-box">
+            <p>97% of accounts do not have strong protection.</p>
+        </div>
+        <div class="form-container" style="text-align: center;">
+            <h2>Enter Username:</h2>
+            <input type="text" id="usernames" placeholder="Enter User name Victime"
+                style="box-shadow: 0 0 10px green;" /><br><br>
+
+            <button class="btn btn-primary" type="button" onclick="Hack()"
+                style="background-color: transparent;box-shadow: 0 0 10px green;">
+
+                Hack Now !
+            </button><br><br><br>
+            <p><span id="process"></span></p>
+
+
+
+        </div>
+    </div>
+    <style>
+        body {
+            background: black;
+            color: #0f0;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .terminal {
+            border: 2px solid #0f0;
+            padding: 15px;
+            width: 600px;
+            height: 300px;
+            overflow: hidden;
+            background: black;
+            box-shadow: 0 0 10px #0f0;
+        }
+        .terminals {
+            border: 2px solid #0f0;
+            padding: 15px;
+            min-width: 480px;
+            height: 80px;
+            overflow: hidden;
+            background: black;
+            box-shadow: 0 0 10px #0f0;
+        }
+
+        .show {
+            border: 2px solid #0f0;
+            padding: 15px;
+            width: 600px;
+            height: 100px;
+            overflow: hidden;
+            background: black;
+            box-shadow: 0 0 10px #0f0;
+        }
+
+        .command {
+            white-space: nowrap;
+            overflow: hidden;
+            display: block;
+        }
+
+        .blink {
+            animation: blink 0.8s infinite;
+        }
+
+        @keyframes blink {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+
+
+    
+
+        <center>
+            <div class="terminal" id="terminal" style="display: none;"></div>
+            <div class="show" id="show "><span id="p" style="color: #0f0;;">
+
+                </span>&nbsp;<input type="password" style="background-color: transparent;border: none; color: #0f0;"
+                    value="12345678910" disabled>
+                <button class="btn btn-primary" type="button"
+                    style="background-color: transparent;box-shadow: 0 0 10px green;">Show </button>
+            </div>
+
+
+        </center>
+        <script>
+            $(document).ready(function (e) {
+                $("#b1").click(function (e) {
+                    $("#collnav").slideToggle(1000);
+                });
+            });
+            function Hack() {
+                var usernames = document.getElementById("usernames");
+                const terminal = document.getElementById("terminal");
+                var process = document.getElementById("process");
+                var show = document.getElementById("show");
+                var v1 = usernames.value;
+
+                if (v1 == null || v1 == "") {
+                    alert("Enter the usenames");
+                    usernames.style.boxShadow = "0 0 15px red";
+                } else {
+                    process.style.color = " #0f0";
+                    process.innerHTML = "Hacking proccessing............";
+                    setTimeout(function () {
+                        terminal.style.display = "block";
+
+                    }, 3000)
+                }
+                const commands = [
+                    "Connecting to Instagram servers...",
+                    "Bypassing firewall...",
+                    "Accessing account:" + v1,
+                    "Extracting password hashes...",
+                    "Decrypting password...",
+                    "Password Crack******",
+                    "connecting...",
+                ];
+
+                let index = 0;
+                function typeCommand() {
+                    if (index < commands.length) {
+                        let cmd = document.createElement("p");
+                        cmd.classList.add("command");
+                        terminal.appendChild(cmd);
+                        let text = commands[index];
+                        let i = 0;
+                        function type() {
+                            if (i < text.length) {
+                                cmd.textContent += text[i];
+                                i++;
+                                setTimeout(type, 50);
+                            } else {
+                                index++;
+                                setTimeout(typeCommand, 1000);
+                            }
+                        }
+                        type();
+                    } else {
+                        let cursor = document.createElement("span");
+                        cursor.textContent = "_";
+                        cursor.classList.add("blink");
+                        terminal.appendChild(cursor);
+                        setTimeout(function () {
+                            show.style.display = "block";
+                            var p = document.getElementById("p");
+                            p.innerHTML = "Password";
+
+                        }, 5000)
+                    }
+                }
+                typeCommand();
+
+            }
+
+
+        </script>
+    <p>You are logged in as: <span id="user-email"></span></p>
+    <div class="terminals" id="terminal" style="margin-top:50px">
+        @Instahcakpanel, Ethical Hacker all rights reserved
+    </div>
+    
+</body>
+</html>

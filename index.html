@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="css/bootstrap-grid.min.css">
+    <script src="jsk/js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <style>
+          body {
+            background: black;
+            color: #0f0;
+            font-family: "Courier New", monospace;
+            padding: 20px;
+            text-align: center;
+        }
+        .terminal {
+            border: 2px solid #0f0;
+            padding: 15px;
+            min-width: 480px;
+            height: 300px;
+            overflow: hidden;
+            background: black;
+            box-shadow: 0 0 10px #0f0;
+        }
+        .terminals {
+            border: 2px solid #0f0;
+            padding: 15px;
+            min-width: 480px;
+            height: 80px;
+            overflow: hidden;
+            background: black;
+            box-shadow: 0 0 10px #0f0;
+        }
+        @media screen and (max-width:480px){
+            .terminal {
+            border: 2px solid #0f0;
+            padding: 15px;
+            min-width: 200px;
+            height: 300px;
+            overflow: hidden;
+            background: black;
+            box-shadow: 0 0 10px #0f0;
+        }
+        #h1{
+            font-size: 20px;
+        }
+        }
+            
+        
+        .navbar {
+            box-shadow: 0 0 10px #0f0;
+            border: 2px solid #0f0;
+            color: #0f0;
+
+
+        }
+        button {
+            background: #000000;
+            color: white;
+            border:2px solid #0f0;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            box-shadow: 0 0 10px #0f0;
+
+        }
+
+        button:hover {
+            box-shadow: 0 0 10px skyblue;
+            
+
+        }
+
+    </style>
+    <script type="module">
+        // Firebase SDK Import करो
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-app.js";
+        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.3.1/firebase-auth.js";
+
+        // Firebase Config
+        const firebaseConfig = {
+            apiKey: "AIzaSyDt_fcSYPmnJf2BlG-hkloTvRbly777zlo",
+            authDomain: "login-sytem-e8de2.firebaseapp.com",
+            projectId: "login-sytem-e8de2",
+            storageBucket: "login-sytem-e8de2.appspot.com",
+            messagingSenderId: "153196193021",
+            appId: "1:153196193021:web:f44231cd3918be9df70a94"
+        };
+        
+        // Firebase Initialize
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+
+        // ✅ Login Function
+        window.login = function () {
+            var t1 = document.getElementById("email");
+            var t2 = document.getElementById("password");
+            var email=t1.value;
+            var password=t2.value;
+            signInWithEmailAndPassword(auth, email, password)
+
+                .then((userCredential) => {
+                    
+                    alert("Login Successful!");
+                    window.location.href = "dashboard.html"; // डैशबोर्ड पर भेजो
+                })
+                .catch((error) => {
+                    if(email=null || email==""){
+                        alert("Enter the email !");
+                        t1.style.boxShadow="0 0 10px red";
+                        
+                    }
+                    else if(password==null || password==""){
+                        alert("Enter the password !");
+                        t2.style.boxShadow="0 0 10px red";
+                    }
+                    else{
+                        alert("Please Enter the correct email password");
+                    }
+                });
+        };
+    </script>
+</head>
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark ">
+        <a href="#" class="navbar-brand text-primary font-weight-bold" id="h1">Hack Insta </a>
+        <button class="navbar-toggler" id="b1">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="collnav">
+            <ul class="navbar-nav text-center">
+                <li class="nav-item"><a href="#" class="nav-link">Home</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">About</a></li>
+                <li class="nav-item"><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+<script>
+    function email(){
+        var email=document.getElementById("email");
+        email.style.boxShadow="0 0 10px green";
+        email.style.outline="none";
+        }
+     $(document).ready(function (e) {
+                $("#b1").click(function (e) {
+                    $("#collnav").slideToggle(1000);
+                });
+            });
+</script>
+<div class="terminal" id="terminal" style="margin-top:50px">
+    <h2>Login Here</h2>
+    <input type="email" id="email" placeholder="Enter Email" onkeyup="email()"><br><br>
+    <input type="password" id="password" placeholder="Enter Password"><br><br>
+    <button onclick="login()">Login</button>
+<br><br>
+    <p >Don't have an account? <a href="register.html">Register Here</a></p>
+</div>
+<div class="terminals" id="terminal" style="margin-top:50px">
+    @Instahcakpanel, Ethical Hacker all rights reserved
+</div>
+    
+</body>
+</html>
+
+
+
+
+
+
